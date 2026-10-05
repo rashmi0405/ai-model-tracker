@@ -2,9 +2,9 @@
 
 A daily, automated data pipeline on Google Cloud that tracks the price and capabilities of **every AI model on OpenRouter** (466 models from 65 providers), keeps a full **price history**, and shows it in a live dashboard.
 
-![AI model price exchange dashboard](images/dashboard.png)
+![AI model price exchange dashboard](dashboard.png)
 
-**Live dashboard:** _add your Looker Studio link here_
+**Live dashboard:** https://datastudio.google.com/u/0/reporting/6df2d2d3-4183-4f4a-8cd4-3993bf1066fb/page/K4QAG
 
 ---
 
@@ -38,7 +38,7 @@ A pipeline that takes a snapshot of the whole AI model market every day, stores 
 
 ## Architecture
 
-![Architecture](images/architecture.png)
+![Architecture](architecture.png)
 
 ```
 OpenRouter API ─► Cloud Storage ─► BigQuery raw ─► dbt (staging → snapshot → marts) ─► Looker Studio
