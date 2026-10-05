@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: dim_models
+    description: "One row per AI model ever seen, with its latest details and price."
+    columns:
+      - name: model_id
+        description: "OpenRouter model ID. One row per model."
+        data_tests:
+          - unique
+          - not_null
+      - name: provider
+        data_tests:
+          - not_null
+      - name: is_active
+        description: "True if the model is still listed in the newest snapshot."
+        data_tests:
+          - not_null
+
+  - name: fct_model_daily_prices
+    description: "One row per model per day: price and limits on that day."
+    columns:
+      - name: model_snapshot_id
+        description: "model_id + date. One row per model per day."
+        data_tests:
+          - unique
+          - not_null
+      - name: model_id
+        description: "Every model here must exist in dim_models."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_models')
+                field: model_id
+
+  - name: fct_model_price_changes
+    description: "One row per price or limit change, from the SCD Type 2 snapshot."
+    columns:
+      - name: price_change_id
+        description: "model_id + version number. One row per change."
+        data_tests:
+          - unique
+          - not_null
+      - name: change_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['price_cut', 'price_increase', 'mixed_price_change', 'pricing_type_change', 'limits_change']
+
+  - name: agg_provider_daily_summary
+    description: "One row per provider per day: model count, free models, median and cheapest price."
+    columns:
+      - name: provider_day_id
+        description: "provider + date. One row per provider per day."
+        data_tests:
+          - unique
+          - not_null

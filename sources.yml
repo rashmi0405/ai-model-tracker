@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: openrouter
+    database: ai-model-tracker-510418   # GCP project
+    schema: ai_models_raw               # BigQuery dataset
+    tables:
+      - name: model_snapshots
+        description: "One row per model per day, raw JSON from the OpenRouter models API."
+        config:
+          loaded_at_field: loaded_at
+          freshness:                    # warns if data stops arriving
+            warn_after: {count: 2, period: day}
+            error_after: {count: 4, period: day}

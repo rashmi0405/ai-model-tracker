@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: int_openrouter__latest_models
+    description: "The newest day's snapshot only. One row per model. Feeds the price-history snapshot."
+    columns:
+      - name: model_id
+        description: "OpenRouter model ID, for example openai/gpt-4o. One row per model."
+        data_tests:
+          - unique
+          - not_null

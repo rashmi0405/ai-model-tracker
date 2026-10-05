@@ -1,0 +1,19 @@
+# The dbt project settings: its name, which connection profile to use,
+# and where its folders are.
+name: ai_model_tracker
+version: "1.0.0"
+profile: ai_model_tracker
+
+model-paths: ["models"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+macro-paths: ["macros"]
+
+models:
+  ai_model_tracker:
+    staging:
+      +materialized: view      # staging models are views: no extra storage, always current
+    intermediate:
+      +materialized: view      # helper step between staging and snapshot/marts
+    marts:
+      +materialized: table     # final tables the dashboard reads: stored, so charts load fast

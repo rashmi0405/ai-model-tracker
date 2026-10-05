@@ -1,0 +1,11 @@
+ai_model_tracker:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth                      # uses your gcloud login, no key file
+      project: ai-model-tracker-510418
+      dataset: ai_models                 # where dbt creates its tables and views
+      location: US
+      threads: 4
+      job_execution_timeout_seconds: 300

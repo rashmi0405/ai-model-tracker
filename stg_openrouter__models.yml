@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_openrouter__models
+    description: "Cleaned OpenRouter models: one row per model per snapshot day."
+    columns:
+      - name: model_snapshot_id
+        description: "model_id + snapshot_date. Must be unique: one row per model per day."
+        data_tests: [unique, not_null]
+      - name: snapshot_date
+        data_tests: [not_null]
+      - name: model_id
+        data_tests: [not_null]
+      - name: provider
+        data_tests: [not_null]
+      - name: model_name
+        data_tests:
+          - not_null:
+              config: {severity: warn}
+      - name: context_length
+        data_tests:
+          - not_null:
+              config: {severity: warn}
