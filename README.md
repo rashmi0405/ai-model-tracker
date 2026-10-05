@@ -62,7 +62,7 @@ Airflow, daily 9 AM ET:  extract_to_gcs → load_to_bigquery → dbt_source_fres
 
 ## Data model: star schema
 
-![Star schema](images/star_schema.png)
+![Star schema](star_schema.png)
 
 | Table | Type | One row per | Answers |
 |---|---|---|---|
